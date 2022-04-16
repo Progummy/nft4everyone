@@ -615,6 +615,19 @@ class MenuBar extends React.Component {
                             </MenuBarItemTooltip>
                         ) : [])}
                     </div>
+                    {/* JPYC TODO */}
+                    <div key="JPYC-1">
+                    </div>
+                    <div key="JPYC-2">
+                    </div>
+                    <div key="JPYC-3">
+                    </div>
+                    <div key="JPYC-4">
+                    </div>
+                    <div key="JPYC-5">
+                    </div>
+                    <div key="JPYC-6">
+                    </div>
                 </div>
 
                 {/* show the proper UI in the account menu, given whether the user is
