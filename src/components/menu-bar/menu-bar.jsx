@@ -624,7 +624,11 @@ class MenuBar extends React.Component {
                     {/* JPYC TODO */}
                     <div key="JPYC-1" className={classNames(styles.menuBarItem)}>
                         {/* HTML化 */}
-                        <Button className={classNames(styles.menuBarButton, styles.jpycButton.hoverable, styles.jpycButton)}>
+                        <Button className={classNames(styles.menuBarButton, styles.jpycButton.hoverable, styles.jpycButton)}
+                            onClick={() => {
+                                console.log("HTML化");
+                            }}
+                        >
                             <FormattedMessage
                                 defaultMessage="test"
                                 id="jpyc1"
@@ -633,7 +637,11 @@ class MenuBar extends React.Component {
                     </div>
                     <div key="JPYC-2" className={classNames(styles.menuBarItem)}>
                         {/* Pinataアップロード、JSONへのURL取得 */}
-                        <Button className={classNames(styles.menuBarButton, styles.jpycButton.hoverable, styles.jpycButton)}>
+                        <Button className={classNames(styles.menuBarButton, styles.jpycButton.hoverable, styles.jpycButton)}
+                            onClick={() => {
+                                console.log("Pinataアップロード、JSONへのURL取得");
+                            }}
+                        >
                             <FormattedMessage
                                 defaultMessage="test"
                                 id="jpyc2"
@@ -642,16 +650,24 @@ class MenuBar extends React.Component {
                     </div>
                     <div key="JPYC-3" className={classNames(styles.menuBarItem)}>
                         {/* MetaMask接続 */}
-                        <Button className={classNames(styles.menuBarButton, styles.jpycButton.hoverable, styles.jpycButton)}>
+                        <Button className={classNames(styles.menuBarButton, styles.jpycButton.hoverable, styles.jpycButton)}
+                            onClick={() => {
+                                console.log("MetaMask接続");
+                            }}
+                        >
                             <FormattedMessage
-                                defaultMessage="test"
+                                defaultMessage="Connect wallet"
                                 id="jpyc3"
                             />
                         </Button>
                     </div>
                     <div key="JPYC-4" className={classNames(styles.menuBarItem)}>
                         {/* JPYC購入、MATIC獲得 */}
-                        <Button className={classNames(styles.menuBarButton, styles.jpycButton.hoverable, styles.jpycButton)}>
+                        <Button className={classNames(styles.menuBarButton, styles.jpycButton.hoverable, styles.jpycButton)}
+                            onClick={() => {
+                                console.log("JPYC購入、MATIC獲得");
+                            }}
+                        >
                             <FormattedMessage
                                 defaultMessage="test"
                                 id="jpyc4"
@@ -660,7 +676,11 @@ class MenuBar extends React.Component {
                     </div>
                     <div key="JPYC-5" className={classNames(styles.menuBarItem)}>
                         {/* スマートコントラクトのDeploy */}
-                        <Button className={classNames(styles.menuBarButton, styles.jpycButton.hoverable, styles.jpycButton)}>
+                        <Button className={classNames(styles.menuBarButton, styles.jpycButton.hoverable, styles.jpycButton)}
+                            onClick={() => {
+                                console.log("スマートコントラクトのDeploy");
+                            }}
+                        >
                             <FormattedMessage
                                 defaultMessage="test"
                                 id="jpyc5"
@@ -669,7 +689,11 @@ class MenuBar extends React.Component {
                     </div>
                     <div key="JPYC-6" className={classNames(styles.menuBarItem)}>
                         {/* トークンのmint */}
-                        <Button className={classNames(styles.menuBarButton, styles.jpycButton.hoverable, styles.jpycButton)}>
+                        <Button className={classNames(styles.menuBarButton, styles.jpycButton.hoverable, styles.jpycButton)}
+                            onClick={() => {
+                                console.log("トークンのmint");
+                            }}
+                        >
                             <FormattedMessage
                                 defaultMessage="test"
                                 id="jpyc6"
@@ -678,7 +702,11 @@ class MenuBar extends React.Component {
                     </div>
                     <div key="JPYC-7" className={classNames(styles.menuBarItem)}>
                         {/* OpenSeaに接続 */}
-                        <Button className={classNames(styles.menuBarButton, styles.jpycButton.hoverable, styles.jpycButton)}>
+                        <Button className={classNames(styles.menuBarButton, styles.jpycButton.hoverable, styles.jpycButton)}
+                            onClick={() => {
+                                console.log("OpenSeaに接続");
+                            }}
+                        >
                             <FormattedMessage
                                 defaultMessage="test"
                                 id="jpyc7"
