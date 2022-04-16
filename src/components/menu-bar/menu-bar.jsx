@@ -627,7 +627,7 @@ class MenuBar extends React.Component {
                         <Button className={classNames(styles.menuBarButton, styles.jpycButton.hoverable, styles.jpycButton)}>
                             <FormattedMessage
                                 defaultMessage="test"
-                                id="jpyc"
+                                id="jpyc1"
                             />
                         </Button>
                     </div>
@@ -636,7 +636,7 @@ class MenuBar extends React.Component {
                         <Button className={classNames(styles.menuBarButton, styles.jpycButton.hoverable, styles.jpycButton)}>
                             <FormattedMessage
                                 defaultMessage="test"
-                                id="jpyc"
+                                id="jpyc2"
                             />
                         </Button>
                     </div>
@@ -645,7 +645,7 @@ class MenuBar extends React.Component {
                         <Button className={classNames(styles.menuBarButton, styles.jpycButton.hoverable, styles.jpycButton)}>
                             <FormattedMessage
                                 defaultMessage="test"
-                                id="jpyc"
+                                id="jpyc3"
                             />
                         </Button>
                     </div>
@@ -654,7 +654,7 @@ class MenuBar extends React.Component {
                         <Button className={classNames(styles.menuBarButton, styles.jpycButton.hoverable, styles.jpycButton)}>
                             <FormattedMessage
                                 defaultMessage="test"
-                                id="jpyc"
+                                id="jpyc4"
                             />
                         </Button>
                     </div>
@@ -663,7 +663,7 @@ class MenuBar extends React.Component {
                         <Button className={classNames(styles.menuBarButton, styles.jpycButton.hoverable, styles.jpycButton)}>
                             <FormattedMessage
                                 defaultMessage="test"
-                                id="jpyc"
+                                id="jpyc5"
                             />
                         </Button>
                     </div>
@@ -672,7 +672,7 @@ class MenuBar extends React.Component {
                         <Button className={classNames(styles.menuBarButton, styles.jpycButton.hoverable, styles.jpycButton)}>
                             <FormattedMessage
                                 defaultMessage="test"
-                                id="jpyc"
+                                id="jpyc6"
                             />
                         </Button>
                     </div>
@@ -681,7 +681,7 @@ class MenuBar extends React.Component {
                         <Button className={classNames(styles.menuBarButton, styles.jpycButton.hoverable, styles.jpycButton)}>
                             <FormattedMessage
                                 defaultMessage="test"
-                                id="jpyc"
+                                id="jpyc7"
                             />
                         </Button>
                     </div>
