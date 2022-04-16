@@ -77,10 +77,16 @@
     height: $menu-bar-height;
 }
 
+.jpyc-button {
+    box-shadow: 0 0 0 1px $ui-black-transparent;
+    cursor: pointer;
+}
+
 .menu-bar-item.hoverable {
     cursor: pointer;
 }
 
+.jpyc-button:hover,
 .menu-bar-item.active,
 .menu-bar-item.hoverable:hover {
     background-color: $ui-black-transparent;

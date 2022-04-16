@@ -531,6 +531,7 @@ class MenuBar extends React.Component {
                         </div>
                     </div>
                     <Divider className={classNames(styles.divider)} />
+                    {/*
                     <div
                         aria-label={this.props.intl.formatMessage(ariaMessages.tutorials)}
                         className={classNames(styles.menuBarItem, styles.hoverable)}
@@ -573,10 +574,12 @@ class MenuBar extends React.Component {
                                                 className={styles.menuBarButton}
                                                 isShared={this.props.isShared}
                                                 /* eslint-disable react/jsx-no-bind */
+                                                /*
                                                 onClick={() => {
                                                     this.handleClickShare(waitForUpdate);
                                                 }}
                                                 /* eslint-enable react/jsx-no-bind */
+                                                /*
                                             />
                                         )
                                     }
@@ -600,10 +603,12 @@ class MenuBar extends React.Component {
                                             <CommunityButton
                                                 className={styles.menuBarButton}
                                                 /* eslint-disable react/jsx-no-bind */
+                                                /*
                                                 onClick={() => {
                                                     this.handleClickSeeCommunity(waitForUpdate);
                                                 }}
                                                 /* eslint-enable react/jsx-no-bind */
+                                                /*
                                             />
                                         )
                                     }
@@ -615,23 +620,76 @@ class MenuBar extends React.Component {
                             </MenuBarItemTooltip>
                         ) : [])}
                     </div>
+                    */}
                     {/* JPYC TODO */}
-                    <div key="JPYC-1">
+                    <div key="JPYC-1" className={classNames(styles.menuBarItem)}>
+                        {/* HTML化 */}
+                        <Button className={classNames(styles.menuBarButton, styles.jpycButton.hoverable, styles.jpycButton)}>
+                            <FormattedMessage
+                                defaultMessage="test"
+                                id="jpyc"
+                            />
+                        </Button>
                     </div>
-                    <div key="JPYC-2">
+                    <div key="JPYC-2" className={classNames(styles.menuBarItem)}>
+                        {/* Pinataアップロード、JSONへのURL取得 */}
+                        <Button className={classNames(styles.menuBarButton, styles.jpycButton.hoverable, styles.jpycButton)}>
+                            <FormattedMessage
+                                defaultMessage="test"
+                                id="jpyc"
+                            />
+                        </Button>
                     </div>
-                    <div key="JPYC-3">
+                    <div key="JPYC-3" className={classNames(styles.menuBarItem)}>
+                        {/* MetaMask接続 */}
+                        <Button className={classNames(styles.menuBarButton, styles.jpycButton.hoverable, styles.jpycButton)}>
+                            <FormattedMessage
+                                defaultMessage="test"
+                                id="jpyc"
+                            />
+                        </Button>
                     </div>
-                    <div key="JPYC-4">
+                    <div key="JPYC-4" className={classNames(styles.menuBarItem)}>
+                        {/* JPYC購入、MATIC獲得 */}
+                        <Button className={classNames(styles.menuBarButton, styles.jpycButton.hoverable, styles.jpycButton)}>
+                            <FormattedMessage
+                                defaultMessage="test"
+                                id="jpyc"
+                            />
+                        </Button>
                     </div>
-                    <div key="JPYC-5">
+                    <div key="JPYC-5" className={classNames(styles.menuBarItem)}>
+                        {/* スマートコントラクトのDeploy */}
+                        <Button className={classNames(styles.menuBarButton, styles.jpycButton.hoverable, styles.jpycButton)}>
+                            <FormattedMessage
+                                defaultMessage="test"
+                                id="jpyc"
+                            />
+                        </Button>
                     </div>
-                    <div key="JPYC-6">
+                    <div key="JPYC-6" className={classNames(styles.menuBarItem)}>
+                        {/* トークンのmint */}
+                        <Button className={classNames(styles.menuBarButton, styles.jpycButton.hoverable, styles.jpycButton)}>
+                            <FormattedMessage
+                                defaultMessage="test"
+                                id="jpyc"
+                            />
+                        </Button>
+                    </div>
+                    <div key="JPYC-7" className={classNames(styles.menuBarItem)}>
+                        {/* OpenSeaに接続 */}
+                        <Button className={classNames(styles.menuBarButton, styles.jpycButton.hoverable, styles.jpycButton)}>
+                            <FormattedMessage
+                                defaultMessage="test"
+                                id="jpyc"
+                            />
+                        </Button>
                     </div>
                 </div>
 
                 {/* show the proper UI in the account menu, given whether the user is
                 logged in, and whether a session is available to log in with */}
+                {/*
                 <div className={styles.accountInfoGroup}>
                     <div className={styles.menuBarItem}>
                         {this.props.canSave && (
@@ -759,6 +817,7 @@ class MenuBar extends React.Component {
                         </React.Fragment>
                     )}
                 </div>
+                */}
 
                 {aboutButton}
             </Box>
