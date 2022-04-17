@@ -76,6 +76,7 @@ import aboutIcon from './icon--about.svg';
 import scratchLogo from './scratch-logo.svg';
 
 import sharedMessages from '../../lib/shared-messages';
+import MetaMaskButton from '../jpyc/metamask-button.jsx';
 
 const ariaMessages = defineMessages({
     language: {
@@ -650,16 +651,7 @@ class MenuBar extends React.Component {
                     </div>
                     <div key="JPYC-3" className={classNames(styles.menuBarItem)}>
                         {/* MetaMask接続 */}
-                        <Button className={classNames(styles.menuBarButton, styles.jpycButton.hoverable, styles.jpycButton)}
-                            onClick={() => {
-                                console.log("MetaMask接続");
-                            }}
-                        >
-                            <FormattedMessage
-                                defaultMessage="Connect wallet"
-                                id="jpyc3"
-                            />
-                        </Button>
+                        <MetaMaskButton className={classNames(styles.menuBarButton, styles.jpycButton.hoverable, styles.jpycButton)} />
                     </div>
                     <div key="JPYC-4" className={classNames(styles.menuBarItem)}>
                         {/* JPYC購入、MATIC獲得 */}
