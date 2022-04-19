@@ -77,6 +77,7 @@ import scratchLogo from './scratch-logo.svg';
 
 import sharedMessages from '../../lib/shared-messages';
 import MetaMaskButton from '../jpyc/metamask-button.jsx';
+import HTMLButton from '../jpyc/html-button.jsx';
 
 const ariaMessages = defineMessages({
     language: {
@@ -625,16 +626,7 @@ class MenuBar extends React.Component {
                     {/* JPYC TODO */}
                     <div key="JPYC-1" className={classNames(styles.menuBarItem)}>
                         {/* HTML化 */}
-                        <Button className={classNames(styles.menuBarButton, styles.jpycButton.hoverable, styles.jpycButton)}
-                            onClick={() => {
-                                console.log("HTML化");
-                            }}
-                        >
-                            <FormattedMessage
-                                defaultMessage="test"
-                                id="jpyc1"
-                            />
-                        </Button>
+                        <HTMLButton className={classNames(styles.menuBarButton, styles.jpycButton.hoverable, styles.jpycButton)} />
                     </div>
                     <div key="JPYC-2" className={classNames(styles.menuBarItem)}>
                         {/* Pinataアップロード、JSONへのURL取得 */}
