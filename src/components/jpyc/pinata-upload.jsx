@@ -21,69 +21,12 @@ class PinataUploadButton extends React.Component {
 const handleFileUpload = function (fileInput) {
   console.log(fileInput[0]);
 
-//  const reader = new FileReader();
+  const reader = new FileReader();
   const file = fileInput[0];
 
   var data = new FormData();
 
   data.append('file', file);
-  data.append('pinataMetadata', '{\n    "name":"test wkbk" \n}');
-  data.append('pinataOptions', '{\n    "cidVersion":0\n}');
-
-  console.log(data.file);
-
-  var config = {
-    method: 'post',
-    url: 'https://api.pinata.cloud/pinning/pinFileToIPFS',
-    headers: {
-      'pinata_api_key': '14ab790a8edd4f609b1c',
-      'pinata_secret_api_key': 'dab9ca73154e8b5c3c3e5dc116bc9a30a862ecadb6232488ffe88d507822f300',
-      'content-type': 'multipart/form-data; boundary=--------------------------733383420271935845045958'
-    },
-    data: data
-  };
-
-  axios(config)
-    .then(function (response) {
-
-      console.log(JSON.stringify(response.data.IpfsHash));
-      
-      jsonFileUpload(response.data.IpfsHash);
-
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
-};
-
-export default PinataUploadButton;
-
-const jsonFileUpload = function (hash) {
-
-  var hashText = hash;
-
-  // var hashText = hash.slice( 1, -1 ) ;
-  // console.log(hashText);
-
-  
-  var imageText =`https://gateway.pinata.cloud/ipfs/${hashText}`;
-  console.log(imageText);
-
-
-  var animationUrlText =`https://gateway.pinata.cloud/ipfs/${hashText}`;
-  console.log(animationUrlText);
-  
-  var jsonText =`{
-      "name": "pinFileJSON",
-      "description": "hello world",
-      "image": "${ imageText }",
-      "animation_url": "${ animationUrlText }"
-    }`;
-  
-  const json = JSON.stringify(jsonText);
-
-  var data = new FormData();
-  data.append('file', new Blob([jsonText],{ type: 'application/json' }));
   data.append('pinataMetadata', '{\n    "name":"test wkbk" \n}');
   data.append('pinataOptions', '{\n    "cidVersion":0\n}');
 
@@ -106,3 +49,5 @@ const jsonFileUpload = function (hash) {
       console.log(error);
     });
 };
+
+export default PinataUploadButton;
