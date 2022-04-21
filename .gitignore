@@ -17,6 +17,3 @@ npm-*
 # Generated translation files
 /translations
 /locale
-
-# Pinata Config
-pinataconfig
