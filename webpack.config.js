@@ -12,6 +12,9 @@ var autoprefixer = require('autoprefixer');
 var postcssVars = require('postcss-simple-vars');
 var postcssImport = require('postcss-import');
 
+// JPYC
+var pinataConfig = require('./pinataconfig');
+
 const STATIC_PATH = process.env.STATIC_PATH || '/static';
 
 const base = {
@@ -133,7 +136,10 @@ module.exports = [
             new webpack.DefinePlugin({
                 'process.env.NODE_ENV': '"' + process.env.NODE_ENV + '"',
                 'process.env.DEBUG': Boolean(process.env.DEBUG),
-                'process.env.GA_ID': '"' + (process.env.GA_ID || 'UA-000000-01') + '"'
+                'process.env.GA_ID': '"' + (process.env.GA_ID || 'UA-000000-01') + '"',
+                'process.env.PINATA_API_KEY': '"' + pinataConfig.getPinataConfigs().PINATA_API_KEY+ '"',
+                'process.env.PINATA_SECRET_API_KEY': '"' +pinataConfig.getPinataConfigs().PINATA_SECRET_API_KEY+ '"',
+                'process.env.PINATA_JWT': '"' +pinataConfig.getPinataConfigs().PINATA_JWT+ '"'
             }),
             new HtmlWebpackPlugin({
                 chunks: ['lib.min', 'gui'],

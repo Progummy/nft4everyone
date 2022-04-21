@@ -79,6 +79,8 @@ import sharedMessages from '../../lib/shared-messages';
 import MetaMaskButton from '../jpyc/metamask-button.jsx';
 import HTMLButton from '../jpyc/html-button.jsx';
 
+import PinataUploadButton from '../jpyc/pinata-upload.jsx'
+
 const ariaMessages = defineMessages({
     language: {
         id: 'gui.menuBar.LanguageSelector',
@@ -630,7 +632,8 @@ class MenuBar extends React.Component {
                     </div>
                     <div key="JPYC-2" className={classNames(styles.menuBarItem)}>
                         {/* Pinataアップロード、JSONへのURL取得 */}
-                        <Button className={classNames(styles.menuBarButton, styles.jpycButton.hoverable, styles.jpycButton)}
+                        <PinataUploadButton>pinata</PinataUploadButton>
+                        {/* <Button className={classNames(styles.menuBarButton, styles.jpycButton.hoverable, styles.jpycButton)}
                             onClick={() => {
                                 console.log("Pinataアップロード、JSONへのURL取得");
                             }}
@@ -639,7 +642,7 @@ class MenuBar extends React.Component {
                                 defaultMessage="test"
                                 id="jpyc2"
                             />
-                        </Button>
+                        </Button> */}
                     </div>
                     <div key="JPYC-3" className={classNames(styles.menuBarItem)}>
                         {/* MetaMask接続 */}
