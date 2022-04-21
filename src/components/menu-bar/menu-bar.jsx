@@ -78,8 +78,8 @@ import scratchLogo from './scratch-logo.svg';
 import sharedMessages from '../../lib/shared-messages';
 import MetaMaskButton from '../jpyc/metamask-button.jsx';
 import HTMLButton from '../jpyc/html-button.jsx';
-
-import PinataUploadButton from '../jpyc/pinata-upload.jsx'
+import PinataUploadButton from '../jpyc/pinata-upload.jsx';
+import PurchaseJPYCButton from '../jpyc/purchase-jpyc-button.jsx';
 
 const ariaMessages = defineMessages({
     language: {
@@ -650,16 +650,7 @@ class MenuBar extends React.Component {
                     </div>
                     <div key="JPYC-4" className={classNames(styles.menuBarItem)}>
                         {/* JPYC購入、MATIC獲得 */}
-                        <Button className={classNames(styles.menuBarButton, styles.jpycButton.hoverable, styles.jpycButton)}
-                            onClick={() => {
-                                console.log("JPYC購入、MATIC獲得");
-                            }}
-                        >
-                            <FormattedMessage
-                                defaultMessage="test"
-                                id="jpyc4"
-                            />
-                        </Button>
+                        <PurchaseJPYCButton className={classNames(styles.menuBarButton, styles.jpycButton.hoverable, styles.jpycButton)} />
                     </div>
                     <div key="JPYC-5" className={classNames(styles.menuBarItem)}>
                         {/* スマートコントラクトのDeploy */}
