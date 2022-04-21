@@ -1,12 +1,17 @@
 import classNames from 'classnames';
-import {FormattedMessage} from 'react-intl';
 import PropTypes from 'prop-types';
-import React, {useState} from 'react';
+import React from 'react';
 import Button from '../button/button.jsx';
+import {connect} from 'react-redux';
+import {activateDeck} from '../../reducers/cards';
 
 class PurchaseJPYCButton extends React.Component {
     constructor (props) {
         super(props);
+    }
+
+    setActiveCards (tutorialId) {
+        this.props.onUpdateReduxDeck(tutorialId);
     }
 
     render () {
@@ -16,7 +21,8 @@ class PurchaseJPYCButton extends React.Component {
                     this.props.className
                 )}
                 onClick={() => {
-                    console.log('JPYC購入、MATIC獲得');
+                    const tutorialId = 'purchase-jpyc';
+                    this.setActiveCards(tutorialId);
                 }}
             >
                 <span>Purchase JPYC</span>
@@ -25,8 +31,18 @@ class PurchaseJPYCButton extends React.Component {
     }
 }
 
+const mapDispatchToProps = dispatch => ({
+    onUpdateReduxDeck: tutorialId => {
+        dispatch(activateDeck(tutorialId));
+    }
+})
+
 PurchaseJPYCButton.propTypes = {
-    className: PropTypes.string
+    className: PropTypes.string,
+    onUpdateReduxDeck: PropTypes.func
 };
 
-export default PurchaseJPYCButton;
+export default connect(
+    null,
+    mapDispatchToProps
+)(PurchaseJPYCButton);

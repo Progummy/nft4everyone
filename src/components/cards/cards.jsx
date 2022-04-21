@@ -320,7 +320,7 @@ const Cards = props => {
         y = window.innerHeight - tallCardHeight - bottomMargin - menuBarHeight;
     }
 
-    const steps = content[activeDeckId].steps;
+    const steps = content[activeDeckId]?.steps || [];
 
     return (
         // Custom overlay to act as the bounding parent for the draggable, using values from above
@@ -352,35 +352,42 @@ const Cards = props => {
                             onShrinkExpandCards={onShrinkExpandCards}
                         />
                         <div className={expanded ? styles.stepBody : styles.hidden}>
-                            {steps[step].deckIds ? (
-                                <PreviewsStep
-                                    content={content}
-                                    deckIds={steps[step].deckIds}
-                                    onActivateDeckFactory={onActivateDeckFactory}
-                                    onShowAll={onShowAll}
-                                />
-                            ) : (
-                                steps[step].video ? (
-                                    showVideos ? (
-                                        <VideoStep
-                                            dragging={dragging}
-                                            expanded={expanded}
-                                            video={translateVideo(steps[step].video, locale)}
-                                        />
-                                    ) : ( // Else show the deck image and title
+                            {steps.length ? (
+                                steps[step].deckIds ? (
+                                    <PreviewsStep
+                                        content={content}
+                                        deckIds={steps[step].deckIds}
+                                        onActivateDeckFactory={onActivateDeckFactory}
+                                        onShowAll={onShowAll}
+                                    />
+                                ) : (
+                                    steps[step].video ? (
+                                        showVideos ? (
+                                            <VideoStep
+                                                dragging={dragging}
+                                                expanded={expanded}
+                                                video={translateVideo(steps[step].video, locale)}
+                                            />
+                                        ) : ( // Else show the deck image and title
+                                            <ImageStep
+                                                image={content[activeDeckId].img}
+                                                title={content[activeDeckId].name}
+                                            />
+                                        )
+                                    ) : (
                                         <ImageStep
-                                            image={content[activeDeckId].img}
-                                            title={content[activeDeckId].name}
+                                            image={translateImage(steps[step].image, locale)}
+                                            title={steps[step].title}
                                         />
                                     )
-                                ) : (
-                                    <ImageStep
-                                        image={translateImage(steps[step].image, locale)}
-                                        title={steps[step].title}
-                                    />
                                 )
+                            ) : (
+                                <iframe
+                                    src="https://app.jpyc.jp/"
+                                    width="600" height="450"
+                                ></iframe>
                             )}
-                            {steps[step].trackingPixel && steps[step].trackingPixel}
+                            {steps[step]?.trackingPixel && steps[step]?.trackingPixel}
                         </div>
                         <NextPrevButtons
                             expanded={expanded}

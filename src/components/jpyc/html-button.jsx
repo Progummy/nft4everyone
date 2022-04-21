@@ -57,4 +57,4 @@ const mapStateToProps = state => ({
 export default connect(
     mapStateToProps,
     () => ({}) // omit dispatch prop
-)(HTMLButton);;
+)(HTMLButton);
