@@ -78,7 +78,6 @@ import scratchLogo from './scratch-logo.svg';
 import sharedMessages from '../../lib/shared-messages';
 import MetaMaskButton from '../jpyc/metamask-button.jsx';
 import HTMLButton from '../jpyc/html-button.jsx';
-import PinataUploadButton from '../jpyc/pinata-upload.jsx';
 import PurchaseJPYCButton from '../jpyc/purchase-jpyc-button.jsx';
 import BrowseOpenseaButton from '../jpyc/browse-opensea-button.jsx';
 
@@ -630,20 +629,6 @@ class MenuBar extends React.Component {
                     <div key="JPYC-1" className={classNames(styles.menuBarItem)}>
                         {/* HTML化 */}
                         <HTMLButton className={classNames(styles.menuBarButton, styles.jpycButton.hoverable, styles.jpycButton)} />
-                    </div>
-                    <div key="JPYC-2" className={classNames(styles.menuBarItem)}>
-                        {/* Pinataアップロード、JSONへのURL取得 */}
-                        <PinataUploadButton>pinata</PinataUploadButton>
-                        {/* <Button className={classNames(styles.menuBarButton, styles.jpycButton.hoverable, styles.jpycButton)}
-                            onClick={() => {
-                                console.log("Pinataアップロード、JSONへのURL取得");
-                            }}
-                        >
-                            <FormattedMessage
-                                defaultMessage="test"
-                                id="jpyc2"
-                            />
-                        </Button> */}
                     </div>
                     <div key="JPYC-3" className={classNames(styles.menuBarItem)}>
                         {/* MetaMask接続 */}

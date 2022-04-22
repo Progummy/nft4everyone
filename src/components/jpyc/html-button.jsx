@@ -25,7 +25,7 @@ class HTMLButton extends React.Component {
                 'pinata_api_key': process.env.PINATA_API_KEY,
                 'pinata_secret_api_key': process.env.PINATA_SECRET_API_KEY
             },
-            data: data
+            data
         };
 
         axios(config)
@@ -48,11 +48,14 @@ class HTMLButton extends React.Component {
             "image": "${imageUrl}",
             "animation_url": "${animationUrl}"
         }`;
-        const timestamp = new Date().toISOString();
+
         const data = new FormData();
+        const timestamp = new Date().toISOString();
+
         data.append('file', new Blob([json], {type:'application/json'}));
         data.append('pinataMetadata', `{"name": "${timestamp}"}`);
         data.append('pinataOptions', '{"cidVersion": 0}');
+
         const config = {
             method: 'post',
             url: 'https://api.pinata.cloud/pinning/pinFileToIPFS',
@@ -60,7 +63,7 @@ class HTMLButton extends React.Component {
                 'pinata_api_key': process.env.PINATA_API_KEY,
                 'pinata_secret_api_key': process.env.PINATA_SECRET_API_KEY
             },
-            data: data
+            data
         };
 
         axios(config)
@@ -102,7 +105,7 @@ class HTMLButton extends React.Component {
 
                 }}
             >
-                <span>Create HTML</span>
+                <span>Upload to Pinata</span>
             </Button>
         );
     }
