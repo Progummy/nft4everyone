@@ -80,6 +80,7 @@ import MetaMaskButton from '../jpyc/metamask-button.jsx';
 import HTMLButton from '../jpyc/html-button.jsx';
 import PinataUploadButton from '../jpyc/pinata-upload.jsx';
 import PurchaseJPYCButton from '../jpyc/purchase-jpyc-button.jsx';
+import BrowseOpenseaButton from '../jpyc/browse-opensea-button.jsx';
 
 const ariaMessages = defineMessages({
     language: {
@@ -680,16 +681,7 @@ class MenuBar extends React.Component {
                     </div>
                     <div key="JPYC-7" className={classNames(styles.menuBarItem)}>
                         {/* OpenSeaに接続 */}
-                        <Button className={classNames(styles.menuBarButton, styles.jpycButton.hoverable, styles.jpycButton)}
-                            onClick={() => {
-                                console.log("OpenSeaに接続");
-                            }}
-                        >
-                            <FormattedMessage
-                                defaultMessage="test"
-                                id="jpyc7"
-                            />
-                        </Button>
+                        <BrowseOpenseaButton className={classNames(styles.menuBarButton, styles.jpycButton.hoverable, styles.jpycButton)} />
                     </div>
                 </div>
 

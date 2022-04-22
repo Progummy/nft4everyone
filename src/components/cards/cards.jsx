@@ -321,6 +321,20 @@ const Cards = props => {
     }
 
     const steps = content[activeDeckId]?.steps || [];
+    const iframe = {
+        'purchase-jpyc': (
+            <iframe
+                src="https://app.jpyc.jp/"
+                width="600" height="450"
+            ></iframe>
+        ),
+        'browse-opensea': (
+            <iframe
+                src="https://testnets.opensea.io/"
+                width="800" height="600"
+            ></iframe>
+        )
+    }
 
     return (
         // Custom overlay to act as the bounding parent for the draggable, using values from above
@@ -382,10 +396,7 @@ const Cards = props => {
                                     )
                                 )
                             ) : (
-                                <iframe
-                                    src="https://app.jpyc.jp/"
-                                    width="600" height="450"
-                                ></iframe>
+                                iframe[activeDeckId]
                             )}
                             {steps[step]?.trackingPixel && steps[step]?.trackingPixel}
                         </div>
