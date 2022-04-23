@@ -6,6 +6,8 @@ import {connect} from 'react-redux';
 import axios from 'axios';
 import {ethers} from 'ethers';
 import NFTArtify from '../../artifacts/contracts/NFTArtify.json';
+import Spinner from '../spinner/spinner.jsx';
+import styles from './mint-button.css';
 
 class MintButton extends React.Component {
     constructor (props) {
@@ -14,6 +16,10 @@ class MintButton extends React.Component {
         this.provider = new ethers.providers.Web3Provider(window.ethereum);
         this.signer = this.provider.getSigner();
         this.contract = new ethers.Contract(contractAddress, NFTArtify.abi, this.signer);
+        this.state = {
+            minting: false,
+            message: 'mint'
+        };
     }
 
     handleFileUpload (fileData) {
@@ -41,6 +47,15 @@ class MintButton extends React.Component {
         })
         .catch(error => {
             console.log(error);
+            this.setState({
+                minting: false,
+                message: 'failed'
+            });
+            setTimeout(() => {
+                this.setState({
+                    message: 'mint'
+                });
+            }, 3000);
         });
     }
 
@@ -66,6 +81,15 @@ class MintButton extends React.Component {
             console.log(counter);
             counter++;
         }, 100)
+        this.setState({
+            minting: false,
+            message: 'failed'
+        });
+        setTimeout(() => {
+            this.setState({
+                message: 'mint'
+            });
+        }, 3000);
 
         const imageUpload = dataURL => {
             const byteString = window.atob(dataURL);
@@ -140,10 +164,28 @@ class MintButton extends React.Component {
             .then(receipt => {
                 const tokenId = parseInt(receipt.logs[0].topics[3]);
                 console.log(tokenId);
+                this.setState({
+                    minting: false,
+                    message: 'succeeded!'
+                });
+                setTimeout(() => {
+                    this.setState({
+                        message: 'mint'
+                    });
+                }, 3000);
             });
         })
         .catch(error => {
             console.log(error);
+            this.setState({
+                minting: false,
+                message: 'failed'
+            });
+            setTimeout(() => {
+                this.setState({
+                    message: 'mint'
+                });
+            }, 3000);
         });
     }
 
@@ -158,10 +200,15 @@ class MintButton extends React.Component {
         return (
             <Button
                 className={classNames(
-                    this.props.className
+                    this.props.className,
+                    {[styles.mintButtonMinting]: this.state.minting}
                 )}
                 onClick={() => {
+                    if (this.state.minting) return;
                     console.log("HTMLify -> Upload to Pinata -> mint");
+                    this.setState({
+                        minting: true
+                    });
                     const formData = new FormData();
                     this.props.saveProjectSb3().then(content => {
                         formData.append('file', content);
@@ -179,11 +226,31 @@ class MintButton extends React.Component {
                             this.handleFileUpload(res.data);
                         }).catch(err => {
                             console.log(`Failed... ${err}`);
+                            this.setState({
+                                minting: false,
+                                message: 'failed'
+                            });
+                            setTimeout(() => {
+                                this.setState({
+                                    message: 'mint'
+                                });
+                            }, 3000);
                         });
                     })
                 }}
             >
-                <span>mint</span>
+                {this.state.minting ? (
+                    <>
+                        <Spinner
+                            small
+                            className={styles.spinner}
+                            level={'info'}
+                            />
+                        <span>minting...</span>
+                    </>
+                ) : (
+                    <span>{this.state.message}</span>
+                )}
             </Button>
         );
     }

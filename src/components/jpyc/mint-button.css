@@ -1,0 +1,11 @@
+@import "../../css/colors.css";
+@import "../../css/units.css";
+
+.spinner {
+    margin-right: $space;
+}
+
+.mint-button-minting {
+    background: $ui-black-transparent;
+    cursor: default;
+}
