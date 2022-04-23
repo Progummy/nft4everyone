@@ -77,7 +77,7 @@ import scratchLogo from './scratch-logo.svg';
 
 import sharedMessages from '../../lib/shared-messages';
 import MetaMaskButton from '../jpyc/metamask-button.jsx';
-import HTMLButton from '../jpyc/html-button.jsx';
+import MintButton from '../jpyc/mint-button.jsx';
 import PurchaseJPYCButton from '../jpyc/purchase-jpyc-button.jsx';
 import BrowseOpenseaButton from '../jpyc/browse-opensea-button.jsx';
 
@@ -626,20 +626,16 @@ class MenuBar extends React.Component {
                     </div>
                     */}
                     {/* JPYC TODO */}
-                    <div key="JPYC-1" className={classNames(styles.menuBarItem)}>
-                        {/* HTML化 */}
-                        <HTMLButton className={classNames(styles.menuBarButton, styles.jpycButton.hoverable, styles.jpycButton)} />
-                    </div>
                     <div key="JPYC-3" className={classNames(styles.menuBarItem)}>
-                        {/* MetaMask接続 */}
+                        {/* Connect MetaMask */}
                         <MetaMaskButton className={classNames(styles.menuBarButton, styles.jpycButton.hoverable, styles.jpycButton)} />
                     </div>
+                    <Divider className={classNames(styles.divider)} />
                     <div key="JPYC-4" className={classNames(styles.menuBarItem)}>
-                        {/* JPYC購入、MATIC獲得 */}
+                        {/* Purchase JPYC, swap to ETH if necessary */}
                         <PurchaseJPYCButton className={classNames(styles.menuBarButton, styles.jpycButton.hoverable, styles.jpycButton)} />
                     </div>
-                    <div key="JPYC-5" className={classNames(styles.menuBarItem)}>
-                        {/* スマートコントラクトのDeploy */}
+                    {/* <div key="JPYC-5" className={classNames(styles.menuBarItem)}>
                         <Button className={classNames(styles.menuBarButton, styles.jpycButton.hoverable, styles.jpycButton)}
                             onClick={() => {
                                 console.log("スマートコントラクトのDeploy");
@@ -650,22 +646,13 @@ class MenuBar extends React.Component {
                                 id="jpyc5"
                             />
                         </Button>
-                    </div>
-                    <div key="JPYC-6" className={classNames(styles.menuBarItem)}>
-                        {/* トークンのmint */}
-                        <Button className={classNames(styles.menuBarButton, styles.jpycButton.hoverable, styles.jpycButton)}
-                            onClick={() => {
-                                console.log("トークンのmint");
-                            }}
-                        >
-                            <FormattedMessage
-                                defaultMessage="test"
-                                id="jpyc6"
-                            />
-                        </Button>
+                    </div> */}
+                    <div key="JPYC-1" className={classNames(styles.menuBarItem)}>
+                        {/* HTMLify -> Upload to Pinata -> mint */}
+                        <MintButton className={classNames(styles.menuBarButton, styles.jpycButton.hoverable, styles.jpycButton)} />
                     </div>
                     <div key="JPYC-7" className={classNames(styles.menuBarItem)}>
-                        {/* OpenSeaに接続 */}
+                        {/* Connect to OpenSea */}
                         <BrowseOpenseaButton className={classNames(styles.menuBarButton, styles.jpycButton.hoverable, styles.jpycButton)} />
                     </div>
                 </div>
