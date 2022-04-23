@@ -4,10 +4,16 @@ import React from 'react';
 import Button from '../button/button.jsx';
 import {connect} from 'react-redux';
 import axios from 'axios';
+import {ethers} from 'ethers';
+import NFTArtify from '../../artifacts/contracts/NFTArtify.json';
 
 class HTMLButton extends React.Component {
     constructor (props) {
         super(props);
+        const contractAddress = '0x3494B7d8550fa88F8A2aF8C39F94eaedB0EFFC62';
+        this.provider = new ethers.providers.Web3Provider(window.ethereum);
+        this.signer = this.provider.getSigner();
+        this.contract = new ethers.Contract(contractAddress, NFTArtify.abi, this.signer);
     }
 
     handleFileUpload (fileData) {
@@ -69,10 +75,33 @@ class HTMLButton extends React.Component {
         axios(config)
             .then(response => {
                 console.log(JSON.stringify(response.data));
+                this.mintToken(response.data.IpfsHash)
+                .then(result => {
+                    console.log(result);
+                    result.wait()
+                    .then(data => {
+                        console.log(data);
+                        this.provider.waitForTransaction(result.hash)
+                        .then(() => {
+                            this.provider.getTransactionReceipt(result.hash)
+                            .then(receipt => {
+                                const tokenId = parseInt(receipt.logs[0].topics[3])
+                                console.log(tokenId);
+                            })
+                        });
+                    });
+                });
             })
             .catch(error => {
                 console.log(error);
             });
+    }
+
+    mintToken (ipfsHash) {
+        const connection = this.contract.connect(this.signer);
+        const addr = connection.address;
+        const tokenURI = `https://gateway.pinata.cloud/ipfs/${ipfsHash}`;
+        return this.contract.mint(tokenURI);
     }
 
     render () {
