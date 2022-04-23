@@ -49,6 +49,10 @@ class MintButton extends React.Component {
         const timestamp = new Date().toLocaleString();
 
         const canvas = document.querySelector('canvas');
+        // FIXME: canvas.toDataURL() returns different results almost everytime,
+        // and shorter one is an image of black rectangle which means nothing.
+        // So, the code below call the dataURL several times until it returns
+        // a longer, meaningful data.
         let dataURL;
         const MAX_COUNT = 100;
         let counter = 0;
@@ -57,7 +61,7 @@ class MintButton extends React.Component {
             if (counter > MAX_COUNT || dataURL.length > 3864) {
                 console.log(dataURL);
                 clearInterval(timer);
-                return imageUpload(dataURL);
+                imageUpload(dataURL);
             }
             console.log(counter);
             counter++;
