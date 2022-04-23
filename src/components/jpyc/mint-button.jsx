@@ -35,14 +35,60 @@ class MintButton extends React.Component {
         };
 
         axios(config)
-            .then(response => {
-                const imageHash = response.data.IpfsHash;
-                const animationHash = response.data.IpfsHash;
+        .then(fileUploadResponse => {
+            const animationHash = fileUploadResponse.data.IpfsHash;
+            this.handleImageUpload(animationHash);
+        })
+        .catch(error => {
+            console.log(error);
+        });
+    }
+
+    handleImageUpload (animationHash) {
+        const data = new FormData();
+        const timestamp = new Date().toLocaleString();
+
+        const canvas = document.querySelector('canvas');
+        let dataURL;
+        const MAX_COUNT = 100;
+        let counter = 0;
+        const timer = setInterval(() => {
+            dataURL = canvas.toDataURL().replace(/^data:image\/png;base64,/, "");
+            if (counter > MAX_COUNT || dataURL.length > 3864) {
+                console.log(dataURL);
+                clearInterval(timer);
+                return imageUpload(dataURL);
+            }
+            console.log(counter);
+            counter++;
+        }, 100)
+
+        const imageUpload = dataURL => {
+            const byteString = window.atob(dataURL);
+            let buffer = new Uint8Array(byteString.length);
+            for (let i = 0; i < byteString.length; i++) {
+                buffer[i] = byteString.charCodeAt(i);
+            }
+    
+            data.append('file', new Blob([buffer], {type:'image/png'}));
+            data.append('pinataMetadata', `{"name": "${timestamp}"}`);
+            data.append('pinataOptions', '{"cidVersion": 0}');
+    
+            const config = {
+                method: 'post',
+                url: 'https://api.pinata.cloud/pinning/pinFileToIPFS',
+                headers: {
+                    'pinata_api_key': process.env.PINATA_API_KEY,
+                    'pinata_secret_api_key': process.env.PINATA_SECRET_API_KEY
+                },
+                data
+            };
+            axios(config)
+            .then(imageUploadResponse => {
+                const imageHash = imageUploadResponse.data.IpfsHash;
                 this.jsonFileUpload(imageHash, animationHash);
-            })
-            .catch(error => {
-                console.log(error);
-            })
+            });
+        }
     }
 
     jsonFileUpload (imageHash, animationHash) {
