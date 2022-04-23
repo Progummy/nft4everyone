@@ -35,14 +35,64 @@ class MintButton extends React.Component {
         };
 
         axios(config)
-            .then(response => {
-                const imageHash = response.data.IpfsHash;
-                const animationHash = response.data.IpfsHash;
+        .then(fileUploadResponse => {
+            const animationHash = fileUploadResponse.data.IpfsHash;
+            this.handleImageUpload(animationHash);
+        })
+        .catch(error => {
+            console.log(error);
+        });
+    }
+
+    handleImageUpload (animationHash) {
+        const data = new FormData();
+        const timestamp = new Date().toLocaleString();
+
+        const canvas = document.querySelector('canvas');
+        // FIXME: canvas.toDataURL() returns different results almost everytime,
+        // and shorter one is an image of black rectangle which means nothing.
+        // So, the code below call the dataURL several times until it returns
+        // a longer, meaningful data.
+        let dataURL;
+        const MAX_COUNT = 100;
+        let counter = 0;
+        const timer = setInterval(() => {
+            dataURL = canvas.toDataURL().replace(/^data:image\/png;base64,/, "");
+            if (counter > MAX_COUNT || dataURL.length > 3864) {
+                console.log(dataURL);
+                clearInterval(timer);
+                imageUpload(dataURL);
+            }
+            console.log(counter);
+            counter++;
+        }, 100)
+
+        const imageUpload = dataURL => {
+            const byteString = window.atob(dataURL);
+            let buffer = new Uint8Array(byteString.length);
+            for (let i = 0; i < byteString.length; i++) {
+                buffer[i] = byteString.charCodeAt(i);
+            }
+    
+            data.append('file', new Blob([buffer], {type:'image/png'}));
+            data.append('pinataMetadata', `{"name": "${timestamp}"}`);
+            data.append('pinataOptions', '{"cidVersion": 0}');
+    
+            const config = {
+                method: 'post',
+                url: 'https://api.pinata.cloud/pinning/pinFileToIPFS',
+                headers: {
+                    'pinata_api_key': process.env.PINATA_API_KEY,
+                    'pinata_secret_api_key': process.env.PINATA_SECRET_API_KEY
+                },
+                data
+            };
+            axios(config)
+            .then(imageUploadResponse => {
+                const imageHash = imageUploadResponse.data.IpfsHash;
                 this.jsonFileUpload(imageHash, animationHash);
-            })
-            .catch(error => {
-                console.log(error);
-            })
+            });
+        }
     }
 
     jsonFileUpload (imageHash, animationHash) {
@@ -73,28 +123,28 @@ class MintButton extends React.Component {
         };
 
         axios(config)
-            .then(response => {
-                console.log(JSON.stringify(response.data));
-                this.mintToken(response.data.IpfsHash)
-                .then(result => {
-                    console.log(result);
-                    result.wait()
-                    .then(data => {
-                        console.log(data);
-                        this.provider.waitForTransaction(result.hash)
-                        .then(() => {
-                            this.provider.getTransactionReceipt(result.hash)
-                            .then(receipt => {
-                                const tokenId = parseInt(receipt.logs[0].topics[3])
-                                console.log(tokenId);
-                            })
-                        });
-                    });
-                });
+        .then(response => {
+            console.log(JSON.stringify(response.data));
+            return this.mintToken(response.data.IpfsHash);
+        })
+        .then(result => {
+            console.log(result);
+            result.wait()
+            .then(data => {
+                console.log(data);
+                return this.provider.waitForTransaction(result.hash);
             })
-            .catch(error => {
-                console.log(error);
+            .then(() => {
+                return this.provider.getTransactionReceipt(result.hash);
+            })
+            .then(receipt => {
+                const tokenId = parseInt(receipt.logs[0].topics[3]);
+                console.log(tokenId);
             });
+        })
+        .catch(error => {
+            console.log(error);
+        });
     }
 
     mintToken (ipfsHash) {
