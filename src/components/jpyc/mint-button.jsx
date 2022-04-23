@@ -7,7 +7,7 @@ import axios from 'axios';
 import {ethers} from 'ethers';
 import NFTArtify from '../../artifacts/contracts/NFTArtify.json';
 
-class HTMLButton extends React.Component {
+class MintButton extends React.Component {
     constructor (props) {
         super(props);
         const contractAddress = '0x3494B7d8550fa88F8A2aF8C39F94eaedB0EFFC62';
@@ -18,7 +18,7 @@ class HTMLButton extends React.Component {
 
     handleFileUpload (fileData) {
         const data = new FormData();
-        const timestamp = new Date().toISOString();
+        const timestamp = new Date().toLocaleString();
 
         data.append('file', new Blob([fileData], {type:'text/html'}));
         data.append('pinataMetadata', `{"name": "${timestamp}"}`);
@@ -48,15 +48,15 @@ class HTMLButton extends React.Component {
     jsonFileUpload (imageHash, animationHash) {
         const imageUrl = `https://gateway.pinata.cloud/ipfs/${imageHash}`;
         const animationUrl = `https://gateway.pinata.cloud/ipfs/${animationHash}`;
+        const timestamp = new Date().toLocaleString();
         const json = `{
-            "name": "pinFileJSON",
-            "description": "hello pinata world",
+            "name": "${timestamp}",
+            "description": "Created: ${timestamp}",
             "image": "${imageUrl}",
             "animation_url": "${animationUrl}"
         }`;
 
         const data = new FormData();
-        const timestamp = new Date().toISOString();
 
         data.append('file', new Blob([json], {type:'application/json'}));
         data.append('pinataMetadata', `{"name": "${timestamp}"}`);
@@ -111,7 +111,7 @@ class HTMLButton extends React.Component {
                     this.props.className
                 )}
                 onClick={() => {
-                    console.log("HTML");
+                    console.log("HTMLify -> Upload to Pinata -> mint");
                     const formData = new FormData();
                     this.props.saveProjectSb3().then(content => {
                         formData.append('file', content);
@@ -131,16 +131,15 @@ class HTMLButton extends React.Component {
                             console.log(`Failed... ${err}`);
                         });
                     })
-
                 }}
             >
-                <span>Upload to Pinata</span>
+                <span>mint</span>
             </Button>
         );
     }
 }
 
-HTMLButton.propTypes = {
+MintButton.propTypes = {
     className: PropTypes.string,
     saveProjectSb3: PropTypes.func
 };
@@ -152,4 +151,4 @@ const mapStateToProps = state => ({
 export default connect(
     mapStateToProps,
     () => ({}) // omit dispatch prop
-)(HTMLButton);
+)(MintButton);

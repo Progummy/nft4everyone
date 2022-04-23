@@ -330,7 +330,7 @@ const Cards = props => {
         ),
         'browse-opensea': (
             <iframe
-                src="https://testnets.opensea.io/"
+                src="https://testnets.opensea.io/account"
                 width="800" height="600"
             ></iframe>
         )
