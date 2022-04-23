@@ -73,28 +73,28 @@ class MintButton extends React.Component {
         };
 
         axios(config)
-            .then(response => {
-                console.log(JSON.stringify(response.data));
-                this.mintToken(response.data.IpfsHash)
-                .then(result => {
-                    console.log(result);
-                    result.wait()
-                    .then(data => {
-                        console.log(data);
-                        this.provider.waitForTransaction(result.hash)
-                        .then(() => {
-                            this.provider.getTransactionReceipt(result.hash)
-                            .then(receipt => {
-                                const tokenId = parseInt(receipt.logs[0].topics[3])
-                                console.log(tokenId);
-                            })
-                        });
-                    });
-                });
+        .then(response => {
+            console.log(JSON.stringify(response.data));
+            return this.mintToken(response.data.IpfsHash);
+        })
+        .then(result => {
+            console.log(result);
+            result.wait()
+            .then(data => {
+                console.log(data);
+                return this.provider.waitForTransaction(result.hash);
             })
-            .catch(error => {
-                console.log(error);
+            .then(() => {
+                return this.provider.getTransactionReceipt(result.hash);
+            })
+            .then(receipt => {
+                const tokenId = parseInt(receipt.logs[0].topics[3]);
+                console.log(tokenId);
             });
+        })
+        .catch(error => {
+            console.log(error);
+        });
     }
 
     mintToken (ipfsHash) {
