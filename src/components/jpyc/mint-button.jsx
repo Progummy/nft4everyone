@@ -63,33 +63,43 @@ class MintButton extends React.Component {
         const data = new FormData();
         const timestamp = new Date().toLocaleString();
 
-        const canvas = document.querySelector('canvas');
+        const canvases = document.getElementsByTagName('canvas');
+        let canvas;
+        for (const elem of canvases) {
+            if (elem.className == '') {
+                canvas = elem;
+                break;
+            }
+        }
+
         // FIXME: canvas.toDataURL() returns different results almost everytime,
         // and shorter one is an image of black rectangle which means nothing.
         // So, the code below call the dataURL several times until it returns
         // a longer, meaningful data.
         let dataURL;
+        const DATA_URL_MIN_LENGTH = 3864;
         const MAX_COUNT = 100;
         let counter = 0;
         const timer = setInterval(() => {
             dataURL = canvas.toDataURL().replace(/^data:image\/png;base64,/, "");
-            if (counter > MAX_COUNT || dataURL.length > 3864) {
-                console.log(dataURL);
+            if (dataURL.length > DATA_URL_MIN_LENGTH) {
                 clearInterval(timer);
                 imageUpload(dataURL);
-            }
+            } else if (counter > MAX_COUNT) {
+                clearInterval(timer);
+                this.setState({
+                    minting: false,
+                    message: 'failed'
+                });
+                setTimeout(() => {
+                    this.setState({
+                        message: 'mint'
+                    });
+                }, 3000);
+            } 
             console.log(counter);
             counter++;
-        }, 100)
-        this.setState({
-            minting: false,
-            message: 'failed'
-        });
-        setTimeout(() => {
-            this.setState({
-                message: 'mint'
-            });
-        }, 3000);
+        }, 100);
 
         const imageUpload = dataURL => {
             const byteString = window.atob(dataURL);
