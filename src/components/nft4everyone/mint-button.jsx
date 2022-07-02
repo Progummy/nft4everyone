@@ -3,63 +3,27 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import Button from '../button/button.jsx';
 import {connect} from 'react-redux';
-import axios from 'axios';
 import {ethers} from 'ethers';
-import NFTArtify from '../../artifacts/contracts/NFTArtify.json';
 import Spinner from '../spinner/spinner.jsx';
 import styles from './mint-button.css';
+import nft4everyone from './artifacts/nft4everyone.json';
+import axios from 'axios';
 
 class MintButton extends React.Component {
     constructor (props) {
         super(props);
-        const contractAddress = '0x3494B7d8550fa88F8A2aF8C39F94eaedB0EFFC62';
+        const contractAddress = '0xC8D0aC2869C22fd4adca2E0A4329033A998D2440';
         this.provider = new ethers.providers.Web3Provider(window.ethereum);
         this.signer = this.provider.getSigner();
-        this.contract = new ethers.Contract(contractAddress, NFTArtify.abi, this.signer);
+        this.contract = new ethers.Contract(contractAddress, nft4everyone, this.signer);
+        this.defaultMessage = 'Mint';
         this.state = {
             minting: false,
-            message: 'mint'
+            message: this.defaultMessage
         };
     }
 
-    handleFileUpload (fileData) {
-        const data = new FormData();
-        const timestamp = new Date().toLocaleString();
-
-        data.append('file', new Blob([fileData], {type:'text/html'}));
-        data.append('pinataMetadata', `{"name": "${timestamp}"}`);
-        data.append('pinataOptions', '{"cidVersion": 0}');
-
-        const config = {
-            method: 'post',
-            url: 'https://api.pinata.cloud/pinning/pinFileToIPFS',
-            headers: {
-                'pinata_api_key': process.env.PINATA_API_KEY,
-                'pinata_secret_api_key': process.env.PINATA_SECRET_API_KEY
-            },
-            data
-        };
-
-        axios(config)
-        .then(fileUploadResponse => {
-            const animationHash = fileUploadResponse.data.IpfsHash;
-            this.handleImageUpload(animationHash);
-        })
-        .catch(error => {
-            console.log(error);
-            this.setState({
-                minting: false,
-                message: 'failed'
-            });
-            setTimeout(() => {
-                this.setState({
-                    message: 'mint'
-                });
-            }, 3000);
-        });
-    }
-
-    handleImageUpload (animationHash) {
+    handleImageUpload () {
         const data = new FormData();
         const timestamp = new Date().toLocaleString();
 
@@ -89,11 +53,11 @@ class MintButton extends React.Component {
                 clearInterval(timer);
                 this.setState({
                     minting: false,
-                    message: 'failed'
+                    message: 'Failed'
                 });
                 setTimeout(() => {
                     this.setState({
-                        message: 'mint'
+                        message: this.defaultMessage
                     });
                 }, 3000);
             } 
@@ -124,20 +88,30 @@ class MintButton extends React.Component {
             axios(config)
             .then(imageUploadResponse => {
                 const imageHash = imageUploadResponse.data.IpfsHash;
-                this.jsonFileUpload(imageHash, animationHash);
+                this.jsonFileUpload(imageHash);
+            })
+            .catch(error => {
+                console.error(error);
+                this.setState({
+                    minting: false,
+                    message: 'Failed'
+                });
+                setTimeout(() => {
+                    this.setState({
+                        message: this.defaultMessage
+                    });
+                }, 3000);
             });
         }
     }
 
-    jsonFileUpload (imageHash, animationHash) {
+    jsonFileUpload (imageHash) {
         const imageUrl = `https://gateway.pinata.cloud/ipfs/${imageHash}`;
-        const animationUrl = `https://gateway.pinata.cloud/ipfs/${animationHash}`;
         const timestamp = new Date().toLocaleString();
         const json = `{
             "name": "${timestamp}",
             "description": "Created: ${timestamp}",
-            "image": "${imageUrl}",
-            "animation_url": "${animationUrl}"
+            "image": "${imageUrl}"
         }`;
 
         const data = new FormData();
@@ -176,24 +150,36 @@ class MintButton extends React.Component {
                 console.log(tokenId);
                 this.setState({
                     minting: false,
-                    message: 'succeeded!'
+                    message: 'Succeeded!'
                 });
                 setTimeout(() => {
                     this.setState({
-                        message: 'mint'
+                        message: this.defaultMessage
+                    });
+                }, 3000);
+            })
+            .catch(error => {
+                console.error(error);
+                this.setState({
+                    minting: false,
+                    message: 'Failed'
+                });
+                setTimeout(() => {
+                    this.setState({
+                        message: this.defaultMessage
                     });
                 }, 3000);
             });
         })
         .catch(error => {
-            console.log(error);
+            console.error(error);
             this.setState({
                 minting: false,
-                message: 'failed'
+                message: 'Failed'
             });
             setTimeout(() => {
                 this.setState({
-                    message: 'mint'
+                    message: this.defaultMessage
                 });
             }, 3000);
         });
@@ -201,7 +187,6 @@ class MintButton extends React.Component {
 
     mintToken (ipfsHash) {
         const connection = this.contract.connect(this.signer);
-        const addr = connection.address;
         const tokenURI = `https://gateway.pinata.cloud/ipfs/${ipfsHash}`;
         return this.contract.mint(tokenURI);
     }
@@ -215,38 +200,11 @@ class MintButton extends React.Component {
                 )}
                 onClick={() => {
                     if (this.state.minting) return;
-                    console.log("HTMLify -> Upload to Pinata -> mint");
+                    console.log("mint");
                     this.setState({
                         minting: true
                     });
-                    const formData = new FormData();
-                    this.props.saveProjectSb3().then(content => {
-                        formData.append('file', content);
-                        axios.post(
-                            'https://ov6jpqlth2.execute-api.us-east-2.amazonaws.com/default/',
-                            formData,
-                            {
-                                headers: {
-                                    'Content-Type': 'multipart/form-data'
-                                }
-                            }
-                        ).then(res => {
-                            console.log('Succeeded');
-                            console.log(res.data);
-                            this.handleFileUpload(res.data);
-                        }).catch(err => {
-                            console.log(`Failed... ${err}`);
-                            this.setState({
-                                minting: false,
-                                message: 'failed'
-                            });
-                            setTimeout(() => {
-                                this.setState({
-                                    message: 'mint'
-                                });
-                            }, 3000);
-                        });
-                    })
+                    this.handleImageUpload();
                 }}
             >
                 {this.state.minting ? (
@@ -256,7 +214,7 @@ class MintButton extends React.Component {
                             className={styles.spinner}
                             level={'info'}
                             />
-                        <span>minting...</span>
+                        <span>Minting...</span>
                     </>
                 ) : (
                     <span>{this.state.message}</span>

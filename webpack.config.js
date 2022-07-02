@@ -12,7 +12,7 @@ var autoprefixer = require('autoprefixer');
 var postcssVars = require('postcss-simple-vars');
 var postcssImport = require('postcss-import');
 
-// JPYC
+// nft4everyone
 var pinataConfig = require('./pinataconfig');
 
 const STATIC_PATH = process.env.STATIC_PATH || '/static';

@@ -76,10 +76,8 @@ import aboutIcon from './icon--about.svg';
 import scratchLogo from './scratch-logo.svg';
 
 import sharedMessages from '../../lib/shared-messages';
-import MetaMaskButton from '../jpyc/metamask-button.jsx';
-import MintButton from '../jpyc/mint-button.jsx';
-import PurchaseJPYCButton from '../jpyc/purchase-jpyc-button.jsx';
-import BrowseOpenseaButton from '../jpyc/browse-opensea-button.jsx';
+import MetaMaskButton from '../nft4everyone/metamask-button.jsx';
+import MintButton from '../nft4everyone/mint-button.jsx';
 
 const ariaMessages = defineMessages({
     language: {
@@ -535,19 +533,19 @@ class MenuBar extends React.Component {
                         </div>
                     </div>
                     <Divider className={classNames(styles.divider)} />
-                    {/*
                     <div
                         aria-label={this.props.intl.formatMessage(ariaMessages.tutorials)}
                         className={classNames(styles.menuBarItem, styles.hoverable)}
                         onClick={this.props.onOpenTipLibrary}
-                    >
+                        >
                         <img
                             className={styles.helpIcon}
                             src={helpIcon}
-                        />
+                            />
                         <FormattedMessage {...ariaMessages.tutorials} />
                     </div>
                     <Divider className={classNames(styles.divider)} />
+                    {/*
                     {this.props.canEditTitle ? (
                         <div className={classNames(styles.menuBarItem, styles.growable)}>
                             <MenuBarItemTooltip
@@ -625,35 +623,15 @@ class MenuBar extends React.Component {
                         ) : [])}
                     </div>
                     */}
-                    {/* JPYC TODO */}
-                    <div key="JPYC-3" className={classNames(styles.menuBarItem)}>
+                    {/* nft4everyone TODO */}
+                    <div className={classNames(styles.menuBarItem)}>
                         {/* Connect MetaMask */}
-                        <MetaMaskButton className={classNames(styles.menuBarButton, styles.jpycButton.hoverable, styles.jpycButton)} />
+                        <MetaMaskButton className={classNames(styles.menuBarButton, styles.ethereumButton.hoverable, styles.ethereumButton)} />
                     </div>
                     <Divider className={classNames(styles.divider)} />
-                    <div key="JPYC-4" className={classNames(styles.menuBarItem)}>
-                        {/* Purchase JPYC, swap to ETH if necessary */}
-                        <PurchaseJPYCButton className={classNames(styles.menuBarButton, styles.jpycButton.hoverable, styles.jpycButton)} />
-                    </div>
-                    {/* <div key="JPYC-5" className={classNames(styles.menuBarItem)}>
-                        <Button className={classNames(styles.menuBarButton, styles.jpycButton.hoverable, styles.jpycButton)}
-                            onClick={() => {
-                                console.log("スマートコントラクトのDeploy");
-                            }}
-                        >
-                            <FormattedMessage
-                                defaultMessage="test"
-                                id="jpyc5"
-                            />
-                        </Button>
-                    </div> */}
-                    <div key="JPYC-1" className={classNames(styles.menuBarItem)}>
-                        {/* HTMLify -> Upload to Pinata -> mint */}
-                        <MintButton className={classNames(styles.menuBarButton, styles.jpycButton.hoverable, styles.jpycButton)} />
-                    </div>
-                    <div key="JPYC-7" className={classNames(styles.menuBarItem)}>
-                        {/* Connect to OpenSea */}
-                        <BrowseOpenseaButton className={classNames(styles.menuBarButton, styles.jpycButton.hoverable, styles.jpycButton)} />
+                    <div className={classNames(styles.menuBarItem)}>
+                        {/* Mint */}
+                        <MintButton className={classNames(styles.menuBarButton, styles.ethereumButton.hoverable, styles.ethereumButton)} />
                     </div>
                 </div>
 
