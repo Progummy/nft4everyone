@@ -12,7 +12,7 @@ import axios from 'axios';
 class MintButton extends React.Component {
     constructor (props) {
         super(props);
-        const contractAddress = '0xC8D0aC2869C22fd4adca2E0A4329033A998D2440';
+        const contractAddress = '0x1E461274FB8c75d0930644883dA7906ab5324CDE';
         this.provider = new ethers.providers.Web3Provider(window.ethereum);
         this.signer = this.provider.getSigner();
         this.contract = new ethers.Contract(contractAddress, nft4everyone, this.signer);
