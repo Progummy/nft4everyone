@@ -78,6 +78,7 @@ import scratchLogo from './scratch-logo.svg';
 import sharedMessages from '../../lib/shared-messages';
 import MetaMaskButton from '../nft4everyone/metamask-button.jsx';
 import MintButton from '../nft4everyone/mint-button.jsx';
+import BulkMintButton from '../nft4everyone/bulk-mint-button.jsx';
 
 const ariaMessages = defineMessages({
     language: {
@@ -632,6 +633,10 @@ class MenuBar extends React.Component {
                     <div className={classNames(styles.menuBarItem)}>
                         {/* Mint */}
                         <MintButton className={classNames(styles.menuBarButton, styles.ethereumButton.hoverable, styles.ethereumButton)} />
+                    </div>
+                    <div className={classNames(styles.menuBarItem)}>
+                        {/* Bulk Mint */}
+                        <BulkMintButton className={classNames(styles.menuBarButton, styles.ethereumButton.hoverable, styles.ethereumButton)} vm={this.props.vm} />
                     </div>
                 </div>
 
