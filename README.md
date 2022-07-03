@@ -12,7 +12,7 @@ The difficulties for deeling with lots of tools to create and publish NFT arts f
 # Technologies used
 Solidity, React/Redux, node.js, AWS API Gateway, AWS Lambda, Pinata API, GitHub pages, and some OSS modules like [Scratch](https://github.com/LLK/scratch-gui) and [TurboWarp/packager](https://github.com/TurboWarp/packager).
 
-![Untitled](https://user-images.githubusercontent.com/11350916/177023342-46f9cfbb-52af-4191-9a33-3cba9627fd43.png)
+![Untitled](https://user-images.githubusercontent.com/11350916/177025610-a8159690-4364-4fd1-b661-dd172f14dd90.png)
 
 # Polygonscan links of smart contracts
 https://mumbai.polygonscan.com/address/0x1E461274FB8c75d0930644883dA7906ab5324CDE
