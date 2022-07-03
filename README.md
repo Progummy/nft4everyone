@@ -3,6 +3,7 @@ NFT4Everyone
 
 # About Project(2-3 lines)
 Up until now, although there are so many people who are interested in creating NFT arts and projects, to create and make them sellable are sometimes confusing due to lots of tools creators should deel with, including illustration softwares, IPFS platform, generators for generative arts, and so on. This project makes all processes much easier for providing one-stop platform from creation to publish NFT arts.
+
 ![2022-07-03_Pitch_for_PolygonTokyoHack](https://user-images.githubusercontent.com/11350916/177022273-904ceeda-eb62-46d2-9f80-cfcc5a09cf1b.png)
 
 # The problem it is solving
@@ -10,6 +11,8 @@ The difficulties for deeling with lots of tools to create and publish NFT arts f
 
 # Technologies used
 Solidity, React/Redux, node.js, GitHub pages, and some OSS modules like [Scratch](https://github.com/LLK/scratch-gui) and [TurboWarp/packager](https://github.com/TurboWarp/packager).
+
+![Untitled](https://user-images.githubusercontent.com/11350916/177023342-46f9cfbb-52af-4191-9a33-3cba9627fd43.png)
 
 # Polygonscan links of smart contracts
 https://mumbai.polygonscan.com/address/0x1E461274FB8c75d0930644883dA7906ab5324CDE
